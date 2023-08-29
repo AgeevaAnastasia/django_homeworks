@@ -15,5 +15,9 @@ class Command(BaseCommand):
             orders = Order.objects.filter(customer=user)
             self.stdout.write(f'All orders of customer {user.name} {user.lastname}\n')
             for order in orders:
+                prod_list = []
+                for prod in Order.objects.filter(products__name="name"):
+                    prod_list.append(prod)
                 self.stdout.write(f'Order from date {order.date_ordered}:'
-                                  f'\nTotal price: {order.total_price}')
+                                  f'\nTotal price: {order.total_price}'
+                                  f'\nProducts: {prod_list}')
