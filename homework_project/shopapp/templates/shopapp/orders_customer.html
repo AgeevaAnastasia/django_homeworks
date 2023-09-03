@@ -1,0 +1,20 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}User's orders{% endblock %}
+
+{% block content %}
+
+<p> {{ order.customer }}
+
+{% for order in orders %}
+
+        <p> </p>{{ order.date_ordered }} <a href="{% url 'order' order.id %}">details</a> </p>
+
+
+
+{% endfor %}
+
+
+
+
+{% endblock %}

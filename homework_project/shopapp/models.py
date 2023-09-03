@@ -10,7 +10,7 @@ class User(models.Model):
     registration = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f'Username: {self.name} {self.lastname}, email: {self.email}, phone: {self.phone}'
+        return f'Username: {self.name} {self.lastname}, \nemail: {self.email}, \nphone: {self.phone}\n'
 
 
 class Product(models.Model):
@@ -32,5 +32,5 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return f'Customer:: {self.customer}, products: {self.products}, ' \
-               f'date: {self.date_ordered}, price: {self.total_price}'
+        return f'Customer:: {self.customer}, \nproducts: {self.products}, ' \
+               f'\ndate: {self.date_ordered}, \nprice: {self.total_price}'

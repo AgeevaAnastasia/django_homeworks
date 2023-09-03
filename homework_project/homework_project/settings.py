@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hw1_app',
+    'shopapp',
 ]
 
 MIDDLEWARE = [
@@ -152,6 +153,11 @@ LOGGING = {
             'level': 'INFO',
         },
         'hw1_app': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'shopapp': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
