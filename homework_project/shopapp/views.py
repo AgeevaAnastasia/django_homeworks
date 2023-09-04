@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 
-from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, redirect
 from .models import User, Product, Order
+from .forms import ProductForm
 
 
 def get_orders(request, customer_id):
@@ -45,3 +47,42 @@ def get_products_by_user_id(request, user_id: int, period: str):
         'products': set(products),
     }
     return render(request, "shopapp/user_products.html", context)
+
+
+def all_products(request):
+    products = Product.objects.all()
+    return render(request, 'shopapp/products.html', {'products': products})
+
+
+def change_product(request, product_id):
+    message = ''
+    product = Product.objects.filter(pk=product_id).first()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            if isinstance(image, bool):
+                image = None
+            if image is not None:
+                fs = FileSystemStorage()
+                fs.save(image.name, image)
+            product.name = form.cleaned_data['name']
+            product.price = form.cleaned_data['price']
+            product.description = form.cleaned_data['description']
+            product.amount = form.cleaned_data['amount']
+            product.add_date = form.cleaned_data['add_date']
+            product.image = image
+            product.save()
+            message = f'Product {product.name} was changed'
+
+        return all_products(request)
+
+    else:
+        form = ProductForm(initial={'name': product.name,
+                                    'price': product.price,
+                                    'description': product.description,
+                                    'amount': product.amount,
+                                    'add_date': product.add_date,
+                                    'image': product.image})
+
+    return render(request, 'shopapp/change_product.html', {'form': form, 'message': message})
