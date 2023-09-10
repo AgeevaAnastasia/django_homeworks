@@ -20,10 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-5gj&%+#2$jawhl^p1qi!^e=%37#_zuqr%szwe938w94x4f4tm3'
+# SECRET_KEY = 'django-insecure-5gj&%+#2$jawhl^p1qi!^e=%37#_zuqr%szwe938w94x4f4tm3'
 
 import os
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -33,10 +32,11 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = [
-    'zzu.pythonanywhere.com',
+    '127.0.0.1',
+    'aus.pythonanywhere.com',
 ]
 
-INTERNAL_IPS= [
+INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'homework_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'zzu$default',
-        'USER': 'zzu',
+        'NAME': 'aus$default',
+        'USER': 'aus',
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': 'zzu.mysql.pythonanywhere-services.com',
+        'HOST': 'aus.mysql.pythonanywhere-services.com',
         'OPTIONS': {
             'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',

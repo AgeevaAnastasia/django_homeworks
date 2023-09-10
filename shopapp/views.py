@@ -6,6 +6,10 @@ from .models import User, Product, Order
 from .forms import ProductForm
 
 
+def index(request):
+    return render(request, 'shopapp/base.html')
+
+
 def get_orders(request, customer_id):
     orders = Order.objects.filter(customer__pk=customer_id)
     context = {
@@ -34,7 +38,7 @@ def get_products_by_user_id(request, user_id: int, period: str):
     elif period.lower() == 'year':
         time_filter = current_time - timedelta(days=365)
     else:
-        time_filter = current_time - timedelta(days=365*100)
+        time_filter = current_time - timedelta(days=365 * 100)
 
     # заказы клиента с датой создания >= условной даты
     orders = Order.objects.filter(customer=user, date_ordered__gte=time_filter)
